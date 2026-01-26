@@ -1,0 +1,175 @@
+{
+	"info": {
+		"_postman_id": "5aedd4c8-b4e9-400f-9104-b4389422717e",
+		"name": "tareas node",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "48599471"
+	},
+	"item": [
+		{
+			"name": "Registro",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"name\": \"Pepe\", \"email\": \"pepe@a.com\", \"password\": \"123456\" }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/auth/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"email\": \"pepe@a.com\", \"password\": \"123456\" }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "prueba auth sin token",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/auth/me",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"auth",
+						"me"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "prueba auth con token",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2OTc3YTZiZGE1NzBjNTg2ODc0NjQyY2YiLCJyb2xlIjoidXNlciIsImlhdCI6MTc2OTQ0OTMxNCwiZXhwIjoxNzcwMDU0MTE0fQ.gdx-wkmsy8bJNCsv3V2ymVk42uhlRMz4v8FsR59qS5g",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/auth/me",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"auth",
+						"me"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear tarea",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2OTc3YTZiZGE1NzBjNTg2ODc0NjQyY2YiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3Njk0NTEzNTQsImV4cCI6MTc3MDA1NjE1NH0.rxJ_HlPaAXFdcvXL9sh57Rv0Qh2ts5TdvA6Q_rGMwAA",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"descripcion\": \"Crear sistema de login\",\r\n  \"duracion\": 3,\r\n  \"dificultad\": \"M\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/tareas/crear",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"tareas",
+						"crear"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ver tareas sin asignar",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2OTc3YjE1MTFhZTY3MmEzZTAzZjFkZTkiLCJyb2xlIjoidXNlciIsImlhdCI6MTc2OTQ1MTg3MSwiZXhwIjoxNzcwMDU2NjcxfQ.qz78h1ymSAqIZWCveiKXqTVjNo7HOh4aHGNI-cEufKI",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/tareas/sin-asignar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"tareas",
+						"sin-asignar"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

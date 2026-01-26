@@ -1,0 +1,40 @@
+[{
+  "_id": {
+    "$oid": "6977af7cfa1aaaac3a8e3d86"
+  },
+  "descripcion": "Crear sistema de login",
+  "duracion": 3,
+  "dificultad": "M",
+  "estado": "por_hacer",
+  "asignadaA": null,
+  "creadaPor": {
+    "$oid": "6977a6bda570c586874642cf"
+  },
+  "createdAt": {
+    "$date": "2026-01-26T18:16:28.916Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-26T18:29:51.437Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6977b2e11ae672a3e03f1df6"
+  },
+  "descripcion": "Crear sistema de login 2",
+  "duracion": 3,
+  "dificultad": "M",
+  "estado": "por_hacer",
+  "asignadaA": null,
+  "creadaPor": {
+    "$oid": "6977a6bda570c586874642cf"
+  },
+  "createdAt": {
+    "$date": "2026-01-26T18:30:57.367Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-26T18:31:38.664Z"
+  },
+  "__v": 0
+}]
