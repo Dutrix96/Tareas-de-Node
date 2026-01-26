@@ -2,6 +2,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import User from "../models/User.js";
 import { ENV } from "../config/env.js";
+import googleService from "./google.service.js";
 
 const generarJWT = (uid, role) => {
   const payload = { uid, role };
@@ -35,6 +36,7 @@ const register = async ({ name, email, password }) => {
     name,
     email,
     passwordHash,
+    authProvider: "local",
     role: "user",
   });
 
@@ -57,6 +59,12 @@ const login = async ({ email, password }) => {
     throw e;
   }
 
+  if (user.authProvider === "google") {
+    const e = new Error("Este usuario usa login con Google");
+    e.statusCode = 400;
+    throw e;
+  }
+
   const ok = bcrypt.compareSync(password, user.passwordHash);
   if (!ok) {
     const e = new Error("Credenciales incorrectas");
@@ -69,7 +77,42 @@ const login = async ({ email, password }) => {
   return { user, token };
 };
 
+const loginGoogle = async ({ id_token, idToken }) => {
+  const tokenGoogle = id_token || idToken;
+
+  const info = await googleService.verificarIdTokenGoogle(tokenGoogle);
+
+  let user = await User.findOne({ email: info.email });
+
+  if (!user) {
+    user = await User.create({
+      name: info.name,
+      email: info.email,
+      googleId: info.googleId,
+      authProvider: "google",
+      role: "user",
+    });
+  } else {
+    if (user.authProvider === "google" && !user.googleId) {
+      user.googleId = info.googleId;
+      await user.save();
+    }
+
+    if (user.authProvider === "local") {
+      const e = new Error(
+        "Ya existe un usuario local con ese email. Inicia sesion con password."
+      );
+      e.statusCode = 400;
+      throw e;
+    }
+  }
+
+  const token = generarJWT(user._id.toString(), user.role);
+  return { user, token };
+};
+
 export default {
   register,
   login,
+  loginGoogle,
 };

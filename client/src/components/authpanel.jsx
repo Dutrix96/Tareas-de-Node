@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { apiLogin, apiRegister } from "../api/auth.js";
+import LoginGoogle from "./logingoogle.jsx";
 
 export default function AuthPanel({ onLogin }) {
   const [modo, setModo] = useState("login"); // login | register
@@ -28,6 +29,16 @@ export default function AuthPanel({ onLogin }) {
     } finally {
       setCargando(false);
     }
+  };
+
+  const handleGoogleOk = (res) => {
+    // res viene del componente logingoogle.jsx: { ok, user, token }
+    if (!res?.ok) {
+      setError(res?.msg || "Error login Google");
+      return;
+    }
+    setError("");
+    onLogin({ token: res.token, user: res.user });
   };
 
   return (
@@ -79,11 +90,11 @@ export default function AuthPanel({ onLogin }) {
         <button className="btn" disabled={cargando}>
           {cargando ? "Cargando..." : modo === "login" ? "Entrar" : "Crear cuenta"}
         </button>
-
-        <p className="muted">
-          Token se guarda en localStorage. Header usado: <b>x-token</b>.
-        </p>
       </form>
+
+      <div style={{ marginTop: 16, display: "flex", justifyContent: "center" }}>
+        <LoginGoogle onLoginOk={handleGoogleOk} />
+      </div>
     </div>
   );
 }

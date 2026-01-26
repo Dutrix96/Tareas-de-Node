@@ -24,6 +24,16 @@ router.post("/login", async (req, res) => {
   }
 });
 
+router.post("/google", async (req, res) => {
+  try {
+    const { user, token } = await userService.loginGoogle(req.body);
+    res.json({ ok: true, user, token });
+  } catch (err) {
+    const status = err.statusCode || 500;
+    res.status(status).json({ ok: false, msg: err.message || "Error interno" });
+  }
+});
+
 router.post("/me", authJwt, async (req, res) => {
   res.json({ ok: true, user: req.user });
 });
